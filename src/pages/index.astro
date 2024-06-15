@@ -1,0 +1,25 @@
+---
+import { actions } from 'astro:actions'
+const items = await actions.transformInputs([
+  {
+    entryId: '1',
+    path: ['root'],
+  },
+  {
+    entryId: '2',
+    path: ['root1', 'path1'],
+  },
+])
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Hello</title>
+  </head>
+  <body>
+    <pre>{JSON.stringify(items, null, 2)}</pre>
+  </body>
+</html>

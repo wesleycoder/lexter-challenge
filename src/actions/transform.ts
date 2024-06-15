@@ -1,5 +1,5 @@
-import { inputList, type Input } from './input'
-import type { Output } from './output'
+import type { Input } from '~/models/input'
+import type { Output } from '~/models/output'
 
 const toOutput = (input: Input): Output => ({
   entryId: Number.parseInt(input.entryId, 10),
@@ -8,7 +8,7 @@ const toOutput = (input: Input): Output => ({
   children: [],
 })
 
-const transformInputs = (items: Input[]): Output[] => {
+export const transformInputs = (items: Input[]): Output[] => {
   const result: Output[] = []
 
   for (const input of items.sort((a, b) => a.path.length - b.path.length)) {
@@ -33,5 +33,3 @@ const transformInputs = (items: Input[]): Output[] => {
 
   return result.sort((a, b) => a.entryId - b.entryId)
 }
-
-console.log(transformInputs(inputList))
