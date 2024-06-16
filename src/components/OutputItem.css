@@ -1,13 +1,3 @@
-.output-item:nth-child(odd) > .header {
-  background-color: hsla(var(--primary) / 50%);
-  color: hsl(var(--primary-foreground));
-}
-
-.output-item:nth-child(even) > .header {
-  background-color: hsl(var(--secondary) / 50%);
-  color: hsl(var(--secondary-foreground));
-}
-
 .output-item > .header .icon-closed {
   display: inline;
 }

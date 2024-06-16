@@ -21,7 +21,7 @@ const ItemHeader = ({ item }: ItemHeaderProps) => (
       <input {...getActionProps(actions.addItem)} />
       <input type="hidden" name="entryId" value={Math.floor(Math.random() * 1000)} />
       <input type="hidden" name="rootPath" value={item.fullPath} />
-      <input type="text" name="path" placeholder="Path name" />
+      <input type="text" name="path" placeholder="Child name" class="px-2" />
       <button type="submit">➕</button>
     </form>
   </>
@@ -29,27 +29,31 @@ const ItemHeader = ({ item }: ItemHeaderProps) => (
 
 type Props = ParentProps<{
   item: Output
+  odd: boolean
 }>
-export const OutputItem = ({ item, children }: Props) => {
+export const OutputItem = ({ item, odd, children }: Props) => {
   return (
     <>
       {item.children.length > 0 ? (
         <details class="output-item">
           <summary
             title={item.fullPath}
-            class="flex items-center gap-2 p-2 border-b border-neutral-900 hover:cursor-pointer header"
+            class={[
+              'flex items-center gap-2 p-2 border-b border-neutral-900 hover:cursor-pointer header',
+              odd ? 'bg-green-500/30' : 'bg-yellow-500/30',
+            ].join(' ')}
           >
             <ItemHeader item={item} />
           </summary>
           {children}
           <div class="ml-4">
-            {item.children.map((child) => (
-              <OutputItem item={child} />
+            {item.children.map((child, i) => (
+              <OutputItem item={child} odd={(+odd + i) % 2 === 0} />
             ))}
           </div>
         </details>
       ) : (
-        <div class="output-item">
+        <div class={['output-item', odd ? 'bg-green-500/30' : 'bg-yellow-500/30'].join(' ')}>
           <div title={item.fullPath} class="flex justify-between gap-2 p-2 border-b border-neutral-900 header">
             <ItemHeader item={item} />
           </div>

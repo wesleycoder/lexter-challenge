@@ -18,12 +18,12 @@ const firstError = (result?.error as unknown as ZodError)?.issues?.[0]
 ---
 
 <BaseLayout>
-  <main class="container flex flex-col gap-4">
+  <main class="container flex flex-col gap-4 py-8">
     <h1>Manage Node Tree</h1>
     <form method="post" class="flex gap-2 px-2 justify-self-end">
       <input {...getActionProps(actions.addItem)} />
       <input type="hidden" name="entryId" value={Math.floor(Math.random() * 1000)} />
-      <input type="text" name="path" placeholder="Path name" />
+      <input type="text" name="path" placeholder="Path name" class="px-2" />
       <button type="submit">Add root item</button>
     </form>
     {result?.error && (
@@ -33,7 +33,7 @@ const firstError = (result?.error as unknown as ZodError)?.issues?.[0]
       </details>
     )}
     <section>
-      {data.map(item => <OutputItem {item} />)}
+      {data.map((item, i) => <OutputItem client:visible {item} odd={i % 2 === 0} />)}
     </section>
   </main>
 </BaseLayout>
