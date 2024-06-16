@@ -1,4 +1,5 @@
 import { defineAction } from 'astro:actions'
+import { z } from 'zod'
 import { inputModel } from '~/models/input'
 import { outputList } from '~/stub/output'
 import { transformInputs } from './transform'
@@ -9,16 +10,30 @@ export const server = {
   }),
   transformInputs: defineAction({
     accept: 'form',
-    input: inputModel,
+    input: inputModel.extend({
+      rootPath: z.string().optional(),
+      path: z.string(),
+    }),
     handler: (input, _ctx) => {
-      if (!input.path.filter(Boolean).length) {
-        return outputList
+      if (!input.path) return outputList
+
+      if (input.rootPath) {
+        return transformInputs(
+          [
+            {
+              ...input,
+              path: [...input.rootPath.split('/'), input.path],
+            },
+          ],
+          outputList,
+        )
       }
+
       return transformInputs(
         [
           {
             ...input,
-            path: input.path.filter(Boolean),
+            path: [input.path],
           },
         ],
         outputList,
