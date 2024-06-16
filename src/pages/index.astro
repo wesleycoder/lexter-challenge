@@ -1,5 +1,6 @@
 ---
 import { actions, getActionProps } from 'astro:actions'
+import { PathInputs } from '~/components/PathInputs'
 import BaseLayout from '~/layouts/Base.astro'
 
 const result = Astro.getActionResult(actions.transformInputs)
@@ -11,11 +12,7 @@ const result = Astro.getActionResult(actions.transformInputs)
     <form method="post">
       <input {...getActionProps(actions.transformInputs)} />
       <input type="hidden" name="entryId" value={Math.floor(Math.random() * 1000)}>
-      <input type="text" name="path" placeholder="Path 1" />
-      <input type="text" name="path" placeholder="Path 2" />
-      <input type="text" name="path" placeholder="Path 3" />
-      <input type="text" name="path" placeholder="Path 4" />
-      <input type="text" name="path" placeholder="Path 5" />
+      <PathInputs client:only="solid-js" />
       <button type="submit">Send</button>
     </form>
     {result?.data?.map(item => (

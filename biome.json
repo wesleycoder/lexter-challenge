@@ -18,7 +18,12 @@
     "enabled": true,
     "ignore": ["node_modules", "dist", ".turbo"],
     "rules": {
-      "recommended": true
+      "recommended": true,
+      "correctness": {
+        "useJsxKeyInIterable": {
+          "level": "off"
+        }
+      }
     }
   },
   "javascript": {
