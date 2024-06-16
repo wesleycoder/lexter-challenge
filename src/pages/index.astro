@@ -1,5 +1,6 @@
 ---
 import { actions, getActionProps } from 'astro:actions'
+import { OutputItem } from '~/components/OutputItem'
 import { PathInputs } from '~/components/PathInputs'
 import BaseLayout from '~/layouts/Base.astro'
 
@@ -16,11 +17,7 @@ const result = Astro.getActionResult(actions.transformInputs)
       <button type="submit">Send</button>
     </form>
     {result?.data?.map(item => (
-      <details>
-        <summary>{item.currentPath}</summary>
-        #{item.entryId} - {item.fullPath}
-      </details>
+      <OutputItem item={item} />
     ))}
-    <!-- <pre>{JSON.stringify(result?.data, null, 2)}</pre> -->
   </main>
 </BaseLayout>
