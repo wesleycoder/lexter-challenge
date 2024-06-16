@@ -8,6 +8,9 @@ export const server = {
     accept: 'form',
     input: inputModel,
     handler: (input, _ctx) => {
+      if (!input.path.filter(Boolean).length) {
+        return outputList
+      }
       return transformInputs(
         [
           {
