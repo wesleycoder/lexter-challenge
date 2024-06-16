@@ -1,12 +1,20 @@
 ---
 import { actions, getActionProps } from 'astro:actions'
+import type { ZodError } from 'zod'
 import { OutputItem } from '~/components/OutputItem'
-import { PathInputs } from '~/components/PathInputs'
 import BaseLayout from '~/layouts/Base.astro'
 
 const output = await actions.listOutputs()
 const result = Astro.getActionResult(actions.transformInputs)
 const data = result?.data ?? output
+
+const defaultError = 'An unknown error occurred'
+const knownErrors: Record<string, Record<string, string>> = {
+  path: {
+    invalid_type: 'Please provide a path',
+  },
+}
+const firstError = (result?.error as unknown as ZodError)?.issues?.[0]
 ---
 
 <BaseLayout>
@@ -18,6 +26,12 @@ const data = result?.data ?? output
       <input type="text" name="path" placeholder="Path name" />
       <button type="submit">Add root item</button>
     </form>
+    {result?.error && (
+      <details>
+        <summary>Error: {knownErrors[firstError.path.join('.')][firstError.code] ?? defaultError}</summary>
+        <pre>{JSON.stringify(result.error, null, 2)}</pre>
+      </details>
+    )}
     <section>
       {data.map(item => <OutputItem {item} />)}
     </section>
