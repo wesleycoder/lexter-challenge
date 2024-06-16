@@ -1,17 +1,13 @@
 ---
 import { actions, getActionProps } from 'astro:actions'
+import BaseLayout from '~/layouts/Base.astro'
 
 const result = Astro.getActionResult(actions.transformInputs)
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Hello</title>
-  </head>
-  <body>
+<BaseLayout>
+  <main class="container max-w-full prose">
+    <h1>Manage Node Tree</h1>
     <form method="post">
       <input {...getActionProps(actions.transformInputs)} />
       <input type="hidden" name="entryId" value={Math.floor(Math.random() * 1000)}>
@@ -22,6 +18,12 @@ const result = Astro.getActionResult(actions.transformInputs)
       <input type="text" name="path" placeholder="Path 5" />
       <button type="submit">Send</button>
     </form>
-    <pre>{JSON.stringify(result?.data, null, 2)}</pre>
-  </body>
-</html>
+    {result?.data?.map(item => (
+      <details>
+        <summary>{item.currentPath}</summary>
+        #{item.entryId} - {item.fullPath}
+      </details>
+    ))}
+    <!-- <pre>{JSON.stringify(result?.data, null, 2)}</pre> -->
+  </main>
+</BaseLayout>
