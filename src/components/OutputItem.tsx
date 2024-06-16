@@ -40,7 +40,8 @@ export const OutputItem = ({ item, odd, children }: Props) => {
             title={item.fullPath}
             class={[
               'flex items-center gap-2 p-2 border-b border-neutral-900 hover:cursor-pointer header',
-              odd ? 'bg-green-500/30' : 'bg-yellow-500/30',
+              'bg-opacity-30 hover:bg-opacity-50',
+              odd ? 'bg-green-500' : 'bg-yellow-500',
             ].join(' ')}
           >
             <ItemHeader item={item} />
@@ -53,7 +54,9 @@ export const OutputItem = ({ item, odd, children }: Props) => {
           </div>
         </details>
       ) : (
-        <div class={['output-item', odd ? 'bg-green-500/30' : 'bg-yellow-500/30'].join(' ')}>
+        <div
+          class={['output-item bg-opacity-30 hover:bg-opacity-50', odd ? 'bg-green-500' : 'bg-yellow-500'].join(' ')}
+        >
           <div title={item.fullPath} class="flex justify-between gap-2 p-2 border-b border-neutral-900 header">
             <ItemHeader item={item} />
           </div>
