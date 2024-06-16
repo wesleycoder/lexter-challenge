@@ -8,8 +8,8 @@ const toOutput = (input: Input): Output => ({
   children: [],
 })
 
-export const transformInputs = (items: Input[]): Output[] => {
-  const result: Output[] = []
+export const transformInputs = (items: Input[], initialResult: Output[] = []): Output[] => {
+  const result: Output[] = initialResult
 
   for (const input of items.sort((a, b) => a.path.length - b.path.length)) {
     const output = toOutput(input)

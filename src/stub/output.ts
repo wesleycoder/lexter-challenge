@@ -1,4 +1,4 @@
-import type { Output } from '~/types/output'
+import type { Output } from '~/models/output'
 
 export const outputList: Output[] = [
   {

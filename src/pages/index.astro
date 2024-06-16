@@ -1,15 +1,7 @@
 ---
-import { actions } from 'astro:actions'
-const items = await actions.transformInputs([
-  {
-    entryId: '1',
-    path: ['root'],
-  },
-  {
-    entryId: '2',
-    path: ['root1', 'path1'],
-  },
-])
+import { actions, getActionProps } from 'astro:actions'
+
+const result = Astro.getActionResult(actions.transformInputs)
 ---
 
 <html lang="en">
@@ -20,6 +12,16 @@ const items = await actions.transformInputs([
     <title>Hello</title>
   </head>
   <body>
-    <pre>{JSON.stringify(items, null, 2)}</pre>
+    <form method="post">
+      <input {...getActionProps(actions.transformInputs)} />
+      <input type="hidden" name="entryId" value={Math.floor(Math.random() * 1000)}>
+      <input type="text" name="path" placeholder="Path 1" />
+      <input type="text" name="path" placeholder="Path 2" />
+      <input type="text" name="path" placeholder="Path 3" />
+      <input type="text" name="path" placeholder="Path 4" />
+      <input type="text" name="path" placeholder="Path 5" />
+      <button type="submit">Send</button>
+    </form>
+    <pre>{JSON.stringify(result?.data, null, 2)}</pre>
   </body>
 </html>
