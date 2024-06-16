@@ -1,20 +1,25 @@
 import typography from '@tailwindcss/typography'
 import type { Config } from 'tailwindcss'
 import animate from 'tailwindcss-animate'
+import defaultTheme from 'tailwindcss/defaultTheme'
 
 const config = {
   darkMode: ['class'],
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   prefix: '',
   theme: {
-    container: {
-      center: true,
-      padding: '2rem',
-      screens: {
-        '2xl': '900px',
-      },
-    },
     extend: {
+      container: {
+        center: true,
+        padding: { DEFAULT: '0', xs: '2rem' },
+        screens: {
+          ...defaultTheme.screens,
+          xs: '480px',
+        },
+      },
+      screens: {
+        xs: '480px',
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
