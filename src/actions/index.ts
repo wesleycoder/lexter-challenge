@@ -5,10 +5,10 @@ import { outputList } from '~/stub/output'
 import { transformInputs } from './transform'
 
 export const server = {
-  listOutputs: defineAction({
+  listItems: defineAction({
     handler: () => outputList,
   }),
-  transformInputs: defineAction({
+  addItem: defineAction({
     accept: 'form',
     input: inputModel.extend({
       rootPath: z.string().optional(),

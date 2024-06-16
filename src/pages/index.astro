@@ -4,8 +4,8 @@ import type { ZodError } from 'zod'
 import { OutputItem } from '~/components/OutputItem'
 import BaseLayout from '~/layouts/Base.astro'
 
-const output = await actions.listOutputs()
-const result = Astro.getActionResult(actions.transformInputs)
+const output = await actions.listItems()
+const result = Astro.getActionResult(actions.addItem)
 const data = result?.data ?? output
 
 const defaultError = 'An unknown error occurred'
@@ -21,7 +21,7 @@ const firstError = (result?.error as unknown as ZodError)?.issues?.[0]
   <main class="container flex flex-col gap-4">
     <h1>Manage Node Tree</h1>
     <form method="post" class="flex gap-2 px-2 justify-self-end">
-      <input {...getActionProps(actions.transformInputs)} />
+      <input {...getActionProps(actions.addItem)} />
       <input type="hidden" name="entryId" value={Math.floor(Math.random() * 1000)} />
       <input type="text" name="path" placeholder="Path name" />
       <button type="submit">Add root item</button>

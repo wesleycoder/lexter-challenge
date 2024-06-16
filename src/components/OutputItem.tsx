@@ -18,7 +18,7 @@ const ItemHeader = ({ item }: ItemHeaderProps) => (
           <span class="mr-2 icon icon-open">▼</span>
         </>
       )}
-      <input {...getActionProps(actions.transformInputs)} />
+      <input {...getActionProps(actions.addItem)} />
       <input type="hidden" name="entryId" value={Math.floor(Math.random() * 1000)} />
       <input type="hidden" name="rootPath" value={item.fullPath} />
       <input type="text" name="path" placeholder="Path name" />
