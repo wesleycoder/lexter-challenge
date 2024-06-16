@@ -4,6 +4,9 @@ import { outputList } from '~/stub/output'
 import { transformInputs } from './transform'
 
 export const server = {
+  listOutputs: defineAction({
+    handler: () => outputList,
+  }),
   transformInputs: defineAction({
     accept: 'form',
     input: inputModel,
