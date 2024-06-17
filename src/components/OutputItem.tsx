@@ -1,5 +1,5 @@
 import { actions, getActionProps } from 'astro:actions'
-import { createSignal, type ParentProps } from 'solid-js'
+import { createSignal, onMount, type ParentProps } from 'solid-js'
 import type { Output } from '~/models/output'
 import { Icon } from './Icons'
 import './OutputItem.css'
@@ -49,10 +49,18 @@ export const OutputItem = ({ item, children }: Props) => {
     deleteDialogRef.showModal()
   }
 
+  onMount(() => {
+    document.addEventListener('mousedown', (event) => {
+      if (deleteDialogRef.open && event.target !== deleteDialogRef && !deleteDialogRef.contains(event.target as Node)) {
+        deleteDialogRef.close()
+      }
+    })
+  })
+
   return (
     <>
-      <dialog ref={deleteDialogRef} class="p-4 rounded-sm shadow-2xl pointer-events-none">
-        <div class="flex flex-col items-center text-center pointer-events-auto">
+      <dialog ref={deleteDialogRef} class="rounded-sm shadow-2xl pointer-events-none backdrop:backdrop-blur">
+        <div class="flex flex-col items-center p-4 text-center pointer-events-auto">
           <h1>Delete {deleteItem()?.entryId}?</h1>
           <p>
             Are you sure you want to delete the item at `{deleteItem()?.fullPath}`?
