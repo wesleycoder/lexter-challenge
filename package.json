@@ -5,19 +5,21 @@
   "main": "index.js",
   "scripts": {
     "start": "astro start",
+    "build": "astro build",
     "dev": "astro dev"
   },
   "author": "wes@guima.dev",
   "license": "ISC",
   "devDependencies": {
+    "@astrojs/solid-js": "^4.3.0",
+    "@astrojs/tailwind": "^5.1.0",
+    "@astrojs/vercel": "^7.7.1",
     "@tailwindcss/typography": "^0.5.13",
     "tailwindcss": "^3.4.4",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.4.5"
   },
   "dependencies": {
-    "@astrojs/solid-js": "^4.3.0",
-    "@astrojs/tailwind": "^5.1.0",
     "astro": "^4.10.2",
     "solid-devtools": "^0.30.1",
     "solid-js": "^1.8.17",
