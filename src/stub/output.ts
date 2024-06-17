@@ -104,3 +104,27 @@ export const outputList: Output[] = [
     ],
   },
 ]
+
+export const removeItem = (fullPath: string, list: Output[] = outputList) => {
+  const paths = fullPath.split('/')
+
+  if (!paths.length) throw new Error('invalid path')
+
+  if (paths.length === 1) {
+    const itemIndex = list.findIndex((i) => i.currentPath === fullPath)
+    list.splice(itemIndex, 1)
+    return list
+  }
+
+  const lastPath = paths.pop()
+  const rootPath = paths.shift()
+  const root = list.find((i) => i.currentPath === rootPath)
+  const parent = paths.reduce((target, path) => target?.children.find((t) => t.currentPath === path), root) ?? root
+
+  if (!parent) throw new Error('invalid path')
+
+  const itemIndex = parent.children.findIndex((i) => i.currentPath === lastPath)
+  parent.children.splice(itemIndex, 1)
+
+  return list
+}

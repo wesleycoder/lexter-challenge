@@ -23,17 +23,18 @@ const firstError = (result?.error as unknown as ZodError)?.issues?.[0]
     <form method="post" class="flex gap-2 px-2 justify-self-end">
       <input {...getActionProps(actions.addItem)} />
       <input type="hidden" name="entryId" value={Math.floor(Math.random() * 1000)} />
-      <input type="text" name="path" placeholder="Path name" class="px-2" />
+      <input type="text" name="path" placeholder="Path name" class="px-2 rounded text-foreground" />
       <button type="submit">Add root item</button>
     </form>
     {result?.error && (
+      // Only for debugging/demo purposes, remove in a real production environment
       <details>
         <summary>Error: {knownErrors[firstError.path.join('.')][firstError.code] ?? defaultError}</summary>
         <pre>{JSON.stringify(result.error, null, 2)}</pre>
       </details>
     )}
     <section>
-      {data.map((item, i) => <OutputItem client:visible {item} odd={i % 2 === 0} />)}
+      {data.map((item) => <OutputItem client:visible {item} />)}
     </section>
   </main>
 </BaseLayout>

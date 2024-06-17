@@ -1,6 +1,7 @@
 import { actions, getActionProps } from 'astro:actions'
 import type { ParentProps } from 'solid-js'
 import type { Output } from '~/models/output'
+import { Icon } from './Icons'
 import './OutputItem.css'
 
 type ItemHeaderProps = {
@@ -11,7 +12,7 @@ const ItemHeader = ({ item }: ItemHeaderProps) => (
     <span>
       <b>#{item.entryId}</b> - {item.currentPath}
     </span>
-    <form method="post" class="flex gap-2 ml-auto text-foreground">
+    <form method="post" class="flex gap-2 ml-auto">
       {item.children.length > 0 && (
         <>
           <span class="mr-2 icon icon-closed">▶</span>
@@ -21,17 +22,23 @@ const ItemHeader = ({ item }: ItemHeaderProps) => (
       <input {...getActionProps(actions.addItem)} />
       <input type="hidden" name="entryId" value={Math.floor(Math.random() * 1000)} />
       <input type="hidden" name="rootPath" value={item.fullPath} />
-      <input type="text" name="path" placeholder="Child name" class="px-2" />
-      <button type="submit">➕</button>
+      <input type="text" name="path" placeholder="Child name" class="px-2 rounded text-foreground" />
+      <button type="submit" class="self-stretch px-3 text-white rounded bg-opacity-70 backdrop-blur-sm bg-black/70">
+        <Icon name="plus" />
+      </button>
+    </form>
+    <form method="post" class="flex self-stretch">
+      <input {...getActionProps(actions.removeItem)} />
+      <input type="hidden" name="path" value={item.fullPath} />
+      <button type="submit" class="self-stretch px-3 text-white rounded bg-opacity-70 backdrop-blur-sm bg-black/70">
+        <Icon name="trash" />
+      </button>
     </form>
   </>
 )
 
-type Props = ParentProps<{
-  item: Output
-  odd: boolean
-}>
-export const OutputItem = ({ item, odd, children }: Props) => {
+type Props = ParentProps<{ item: Output }>
+export const OutputItem = ({ item, children }: Props) => {
   return (
     <>
       {item.children.length > 0 ? (
@@ -41,15 +48,14 @@ export const OutputItem = ({ item, odd, children }: Props) => {
             class={[
               'flex items-center gap-2 p-2 border-b border-neutral-900 hover:cursor-pointer header',
               'bg-opacity-30 hover:bg-opacity-50',
-              odd ? 'bg-green-500' : 'bg-yellow-500',
             ].join(' ')}
           >
             <ItemHeader item={item} />
           </summary>
           {children}
           <div class="ml-4">
-            {item.children.map((child, i) => (
-              <OutputItem item={child} odd={(+odd + i) % 2 === 0} />
+            {item.children.map((child) => (
+              <OutputItem item={child} />
             ))}
           </div>
         </details>
@@ -59,7 +65,6 @@ export const OutputItem = ({ item, odd, children }: Props) => {
           class={[
             'flex justify-between gap-2',
             'output-item p-2 border-b border-neutral-900  bg-opacity-30 hover:bg-opacity-50',
-            odd ? 'bg-green-500' : 'bg-yellow-500',
           ].join(' ')}
         >
           <ItemHeader item={item} />

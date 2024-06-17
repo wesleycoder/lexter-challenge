@@ -1,12 +1,35 @@
-import { defineAction } from 'astro:actions'
+import { ActionError, defineAction } from 'astro:actions'
 import { z } from 'zod'
 import { inputModel } from '~/models/input'
-import { outputList } from '~/stub/output'
+import { outputList, removeItem } from '~/stub/output'
 import { transformInputs } from './transform'
 
 export const server = {
   listItems: defineAction({
     handler: () => outputList,
+  }),
+  removeItem: defineAction({
+    accept: 'form',
+    input: z.object({ path: z.string() }),
+    handler: ({ path: fullPath }) => {
+      if (!fullPath.split('/').length) {
+        throw new ActionError({
+          code: 'BAD_REQUEST',
+          message: 'Invalid path',
+        })
+      }
+
+      try {
+        removeItem(fullPath)
+      } catch (error) {
+        throw new ActionError({
+          code: 'BAD_REQUEST',
+          message: (error as Error).message,
+        })
+      }
+
+      return { success: true, error: null } as const
+    },
   }),
   addItem: defineAction({
     accept: 'form',
