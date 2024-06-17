@@ -1,40 +1,60 @@
-# Teste Lexter.ai (Full Stack)
+# Lexter.ai challenge
 
-## Introdução
+> As instruções para o desafio proposto estão no arquivo [`challenge-instructions.md`](./challenge-instructions.md)
 
-O teste consiste em escrever um algoritmo que modifique um lista de objetos do tipo **Input** (definido em `src/input.ts`) para uma lista de objetos do tipo **Output** (definido em `src/output.ts`), usando Typescript e quaisquer outras ferramentas que deseje.
+## Screenshots
 
-Faça um fork do projeto, desenvolva, `commit` e `push` para compartilhar conosco.
+### Tela principal
+![Main screen](./docs/main-screen.jpeg)
 
-## Objetivos 
+### Tela de exclusão
+![Delete confirmation screen](./docs/delete-screen.jpeg)
 
-### Principal
+## Escolha de tecnologias
 
-Entender as estruturas de dados (**Input** e **Output**) e desenvolver o algoritmo descrito na introdução acima.
+### Stack
+- [Typescript](https://typescriptlang.org)
+- [Bun](https://bun.sh)
+- [Astro](https://astro.build)
+- [Tailwind](https://tailwindcss.com)
+- [Solid.js](https://solidjs.com)
+- [Biome.js](https://biomejs.dev)
+- [Zod](https://zod.dev)
 
-### Secundários
+### Razões
 
-Desenvolver ou pelo menos elaborar sugestões de abordagens para o restante do stack:
+Typescript é a linguagem que domino melhor e também foi proposta pelo desafio.
 
-* Frontend que receba inputs do usuário (no formato `src/input.ts`) e mostre o output (no formato `src/output.ts`);
-* Backend com uma rota que receba o input, execute o algoritmo e responda o usuário;
-* Testes unitários ou quaisquer tipos de testes que achar conveniente;
-* Documentações que achar conveniente;
-* O que mais achar conveniente (autenticação, banco de dados, dockerização, infra, CI/CD etc);
+Bun é um bundler e package manager que fornece uma velocidade de feedback alta e uma experiência de desenvolvimento superior ao npm.
 
-## Observações Gerais
+Astro é um framework que permite a criação de sites estáticos com componentes reutilizáveis e uma sintaxe familiar para quem já trabalhou com React, com sua última release dá suporte à actions que permite uma implementação similar ao que vem sendo implementado pelos times do React e Next.js.
+É um framework que tenho explorado recentemente em projetos menores sempre que possível e tenho gostado bastante da experiência.
 
-* Não é esperada a execução de todos os objetivos secundários. O que não for feito (ou for feito de forma incompleta), se achar conveniente e couber no seu nível de senioridade, indique possiveis sugestões de abordagem para execução;
-* Não existe uma resposta certa única para cada objetivo apresentado;
-* O setup do Node.js com o Typescript já está feito para você, basta instalar as dependência e usar `npm start` para rodar o projeto;
-* O arquivo de entrada do projeto é o `src/index.ts`;
-* Não é obrigatória a utilização de nenhuma linguagem ou framework específicos, apesar de já haver um setup inicial com Node.js.
+Tailwind é um framework de CSS que permite a criação de componentes reutilizáveis e uma estilização mais rápida e consistente. Utilizo em todos projetos que trabalho atualmente e têm se provado uma ótima ferramenta para todos os níveis de projeto.
 
-## Detalhes Sobre o Modelo de Dados
+Solid.js é um framework de front-end que tem como objetivo ser uma alternativa ao React, com uma API mais simples e performática. É um framework que tenho acompanhado desde seu lançamento e tenho gostado bastante da proposta e da comunidade que está se formando em torno dele.
 
-* Todos os níveis da lista de output devem estar em ordem crescente por entryId;
-* Uma entrada deve ser filha da outra se o inicio do path de ambas for igual, ou seja, a entrada 'root/path' é filha da entrada 'root';
-* A estrutura tem profundidade indefinida;
-* A chave `fullPath` do Output é uma string com todos os elementos do path separados por `/`;
-* A chave `currentPath` é o valor do path atual. Ou seja para a entrada de `fullPath` `roo/path` o seu `currentPath` é `path`;
-* Os arquivos `src/input.ts` e `src/output.ts` tem um exemplo de um array de input e um de output.
+Biome.js é um linter mais enxuto e rápido que o Prettier e é minha preferência e recomendação para a maioria dos projetos por possuir menor overhead de configuração.
+
+Zod é uma biblioteca de validação de dados que possui uma boa adoção e grande integração em projetos Typescript.
+Seus tipos são inferidos pelo compilador e é possível compartilhar os mesmos tipos entre frontend e backend.
+
+## Arquitetura
+
+A principal lógica para resolução do desafio está no arquivo `src/actions/transform.ts` que é responsável por receber o texto e transformá-lo em um array de objetos no formato `Output` como proposto pelo desafio.
+
+Para integração ao framework Astro transferi os tipos estáticos para modelos do Zod localizados em `src/models`.
+
+Para representar o cliente utilizei submissão de formulários ao invés de requisições HTTP na intenção de ter uma experiência que pode ser melhorada progressivamente se adaptando à casos mais extremos de conexão do usuário.
+
+Combinando tailwind com componentes Solid.js que são renderizados via SSR é possível entregar uma experiência de carregamento mais rápida sem deixar de lado a interatividade da interface.
+
+Para os componentes fiz uso de componentes nativos do navegador como `dialog` para modais de confirmação e `details` para o componente que compõe a árvore de dados.
+
+## Como rodar o projeto
+
+O projeto foi desenvolvido utilizando o [Bun](https://bun.sh) e recomendo utilizá-lo pela performance mas suas dependências permanecem compatíveis com node.js, então é possível instalar as dependências com qualquer package manager e rodar o projeto com qualquer runtime compatível com node.js que preferir.
+
+Para o ambiente de desenvolvimento basta rodar o comando `bun dev` e acessar o endereço `http://localhost:4321` no navegador.
+
+Para o ambiente de produção basta rodar o comando `bun build` e `bun start` e acessar o endereço `http://localhost:4321` no navegador.
