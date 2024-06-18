@@ -22,6 +22,12 @@
 - [Zod](https://zod.dev)
 - [Vitest](https://vitest.dev)
 
+### Intenção
+
+A intenção com essa stack é a de fornecer uma visão de projeto simples onde os arquivos podem se manter mínimos em LOC e ainda assim fornecer uma experiência de desenvolvimento agradável e performática devido ao meu timebox.
+
+Devido à natureza aberta do desafio trabalhei para manter o foco na solução principal e implementações mínimas ao redor das tecnologias que escolhi, mantendo o código o mais simples possível e evitando o uso de muitas bibliotecas e dependências.
+
 ### Razões
 
 Typescript é a linguagem que domino melhor e também foi proposta pelo desafio.
@@ -67,3 +73,13 @@ Para o ambiente de desenvolvimento basta rodar o comando `bun dev` e acessar o e
 Este projeto está sendo publicado via Vercel e pode ser acessado em [lexter-challenge.guima.dev](https://lexter-challenge.guima.dev).
 
 Com o adaptador `@astrojs/vercel` ainda não é possível utilizar `astro preview` para visualizar o build de produção localmente, mas é possível utilizar o [cli da vercel](https://vercel.com/docs/cli) parafazer um rápido deploy da aplicação em sua conta de preferência.
+
+## Possibilidades adicionais
+
+Para esse projeto seria possível em implementar a camada de persistência com [Turso](https://turso.dev) e [Drizzle](https://orm.drizzle.team) para uma integração sólida com Typescript.
+Ainda poderei dedicar mais um tempo à isso em breve, após receber o feedback da avaliação já que foi interessante trabalhar nele.
+
+Turso é um banco de dados libSQL (fork do SQLite) que provê a escalabilidade de bancos mais tradicionais e a simplicidade de um banco de dados em arquivo.
+Drizzle é um ORM que provê uma API simples e performática para trabalhar com bancos de dados relacionais em Typescript.
+
+Utilizar uma camada de persistência poderia limpar um pouco do código ao redor da lógica que manipula o objeto em memória trazendo uma natureza mais funcional para o código, confiando no banco de dados como fonte de verdade e apenas transformando o formato do dado para exibição. Além é claro de fornecer uma experiência mais consistente.
