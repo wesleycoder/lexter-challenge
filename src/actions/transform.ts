@@ -33,3 +33,47 @@ export const transformInputs = (items: Input[], initialResult: Output[] = []): O
 
   return result.sort((a, b) => a.entryId - b.entryId)
 }
+
+if (import.meta.vitest) {
+  const { ouptutModel } = await import('~/models/output')
+  const { it, expect, describe } = import.meta.vitest
+  describe('should create an output tree', () => {
+    const inputs = [
+      { entryId: '1', path: ['a'] },
+      { entryId: '2', path: ['a', 'b'] },
+      { entryId: '3', path: ['a', 'b', 'c'] },
+    ]
+    const expected = [
+      {
+        entryId: 1,
+        currentPath: 'a',
+        fullPath: 'a',
+        children: [
+          {
+            entryId: 2,
+            currentPath: 'b',
+            fullPath: 'a/b',
+            children: [
+              {
+                entryId: 3,
+                currentPath: 'c',
+                fullPath: 'a/b/c',
+                children: [],
+              },
+            ],
+          },
+        ],
+      },
+    ]
+
+    const actual = transformInputs(inputs)
+
+    it('has valid output', () => {
+      expect(() => actual.map((i) => ouptutModel.parse(i))).not.toThrow()
+    })
+
+    it('has expected output', () => {
+      expect(actual).toEqual(expected)
+    })
+  })
+}

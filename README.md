@@ -20,6 +20,7 @@
 - [Solid.js](https://solidjs.com)
 - [Biome.js](https://biomejs.dev)
 - [Zod](https://zod.dev)
+- [Vitest](https://vitest.dev)
 
 ### Razões
 
@@ -39,6 +40,8 @@ Biome.js é um linter mais enxuto e rápido que o Prettier e é minha preferênc
 Zod é uma biblioteca de validação de dados que possui uma boa adoção e grande integração em projetos Typescript.
 Seus tipos são inferidos pelo compilador e é possível compartilhar os mesmos tipos entre frontend e backend.
 
+Vitest é um test runner para a execução de testes em projetos Typescript com uma configuração mínima e uma experiência de desenvolvimento melhor e mais rápida comparado ao Jest.
+
 ## Arquitetura
 
 A principal lógica para resolução do desafio está no arquivo `src/actions/transform.ts` que é responsável por receber o texto e transformá-lo em um array de objetos no formato `Output` como proposto pelo desafio.
@@ -50,6 +53,10 @@ Para representar o cliente utilizei submissão de formulários ao invés de requ
 Combinando tailwind com componentes Solid.js que são renderizados via SSR é possível entregar uma experiência de carregamento mais rápida sem deixar de lado a interatividade da interface.
 
 Para os componentes fiz uso de componentes nativos do navegador como `dialog` para modais de confirmação e `details` para o componente que compõe a árvore de dados.
+
+## Testes
+
+Basta rodar `bun test` para executar os testes unitários.
 
 ## Como rodar o projeto
 
