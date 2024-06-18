@@ -57,4 +57,6 @@ O projeto foi desenvolvido utilizando o [Bun](https://bun.sh) e recomendo utiliz
 
 Para o ambiente de desenvolvimento basta rodar o comando `bun dev` e acessar o endereço `http://localhost:4321` no navegador.
 
-Para o ambiente de produção basta rodar o comando `bun build` e `bun start` e acessar o endereço `http://localhost:4321` no navegador.
+Este projeto está sendo publicado via Vercel e pode ser acessado em [lexter-challenge.guima.dev](https://lexter-challenge.guima.dev).
+
+Com o adaptador `@astrojs/vercel` ainda não é possível utilizar `astro preview` para visualizar o build de produção localmente, mas é possível utilizar o [cli da vercel](https://vercel.com/docs/cli) parafazer um rápido deploy da aplicação em sua conta de preferência.
